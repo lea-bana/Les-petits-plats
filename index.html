@@ -49,9 +49,12 @@
             class="hide search"
             placeholder="Ingredients"
           />
-          <i class="fas fa-chevron-down"> </i>
+          <i class="fas fa-chevron-down" id="dropdownIngredients"> </i>
           <div id="listIngredients" class="list">
-            <ul class="search-list-ingredients"></ul>
+            <ul
+              class="search-list-ingredients"
+              id="listIngredientsContainer"
+            ></ul>
           </div>
         </div>
         <div id="box-appareils" class="boxList" tabindex="1">
@@ -62,10 +65,10 @@
             class="hide search"
             placeholder="Appareils"
           />
-          <i class="fas fa-chevron-down"> </i>
+          <i class="fas fa-chevron-down" id="dropdownAppliances"> </i>
 
           <div id="listAppareils" class="list">
-            <ul class="search-list-appareils"></ul>
+            <ul class="search-list-appareils" id="listAppliancesContainer"></ul>
           </div>
         </div>
         <div id="box-ustensiles" class="boxList" tabindex="1">
@@ -76,9 +79,9 @@
             class="hide search"
             placeholder="Ustensiles"
           />
-          <i class="fas fa-chevron-down"> </i>
+          <i class="fas fa-chevron-down" id="dropdownUstensils"> </i>
           <div id="listUstensiles" class="list">
-            <ul class="search-list-ustensils"></ul>
+            <ul class="search-list-ustensils" id="listUstensilsContainer"></ul>
           </div>
         </div>
       </div>
@@ -109,7 +112,7 @@
 
     <script src="Model.js"></script>
     <script src="controller.js"></script>
-    <script src="ListRecipesView.js"></script>
+    <script src="RecipesListView.js"></script>
     <script>
       let controller = new Controller();
       controller.display();

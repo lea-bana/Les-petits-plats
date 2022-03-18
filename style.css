@@ -106,3 +106,6 @@ input ::placeholder {
   color: rgba(255, 255, 255, 0.733);
   border: #ed6454 solid 1px;
 }
+.inactive {
+  display: none;
+}

@@ -2,36 +2,52 @@ class Model {
   constructor() {
     this.recipes = recipes;
     this.ingredients = new Set();
-    this.ustensils = [];
-    this.appliances = [];
+    this.ustensils = new Set();
+    this.appliances = new Set();
     this.init();
   }
+
   init() {
     for (let index = 0; index < this.recipes.length; index++) {
       const recipe = this.recipes[index];
-      console.log(recipe);
+      //console.log(recipe);
       this.addIngredients(recipe.ingredients);
-      //this.addUstensils(recipe.ustensils);
+      this.addAppliances(recipe.appliance);
+      this.addUstensils(recipe.ustensils);
     }
   }
+
+  addAppliances(listAppliances) {
+    this.appliances.add(listAppliances);
+  }
+
   addIngredients(listIngredients) {
-    /*this.ingredients = [...new Set([...this.ingredients, ...listIngredients])];
-    console.log(this.ingredients);*/
     for (let index = 0; index < listIngredients.length; index++) {
       const ingredient = listIngredients[index];
-      //console.log(ingredient.ingredient);
+      //console.log(ingredient);
       this.ingredients.add(ingredient.ingredient);
     }
   }
+
+  addUstensils(listUstensils) {
+    //console.log(listUstensils);
+    for (let index = 0; index < listUstensils.length; index++) {
+      const ustensil = listUstensils[index];
+      this.ustensils.add(ustensil);
+    }
+  }
+
+  getUstensils() {
+    return this.ustensils;
+  }
+
   getIngredients() {
     return this.ingredients;
   }
-  //addUstensils(listUstensils) {
-  //this.ustensils = [...new Set([...this.ustensils, ...listUstensils])];
-  //console.log(this.ustensils);
-  //}
 
-  //addAppliances()
+  getAppliances() {
+    return this.appliances;
+  }
 
   getRecipes() {
     return this.recipes;

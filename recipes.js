@@ -169,7 +169,7 @@ const recipes = [
         quantity: 2,
       },
       {
-        ingredient: "Crème fraiche",
+        ingredient: "Crème fraîche",
         quantity: 2,
         unit: "cuillères à soupe",
       },
@@ -186,7 +186,7 @@ const recipes = [
     ],
     time: 45,
     description:
-      "Etaler la pâte feuilleté aux dimensions du moule, étaler la moutarde sur la pâte feuilleté, ajouter le thon. Découper les tomates en rondelles et les poser sur le poisson, ajouter un peu de crème fraiche sur toute la tarte et recouvrez de gruyère râpé. Cuire au four 30 minutes",
+      "Etaler la pâte feuilleté aux dimensions du moule, étaler la moutarde sur la pâte feuilleté, ajouter le thon. Découper les tomates en rondelles et les poser sur le poisson, ajouter un peu de crème fraîche sur toute la tarte et recouvrez de gruyère râpé. Cuire au four 30 minutes",
     appliance: "Four",
     ustensils: ["moule à tarte", "râpe à fromage", "couteau"],
   },
@@ -208,7 +208,7 @@ const recipes = [
         quantity: "2",
       },
       {
-        ingredient: "Crème fraiche",
+        ingredient: "Crème fraîche",
         quantity: 25,
         unit: "cl",
       },
@@ -294,7 +294,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "farine",
+        ingredient: "Farine",
         quantity: 90,
         unit: "grammes",
       },
@@ -334,7 +334,7 @@ const recipes = [
     ],
     time: 15,
     description:
-      "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
+      "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olive à votre gout.",
     appliance: "Saladier",
     ustensils: ["cuillère en bois", "couteau"],
   },
@@ -470,7 +470,7 @@ const recipes = [
         unit: "cuillère à soupe",
       },
       {
-        ingredient: "huile d'olive",
+        ingredient: "Huile d'olive",
         quantity: 2,
         unit: "cuillère à soupe",
       },
@@ -586,7 +586,7 @@ const recipes = [
         unit: "tiges",
       },
       {
-        ingredient: "huile d'olives",
+        ingredient: "Huile d'olive",
         quantity: 2,
         unit: "cuillère à soupe",
       },
@@ -706,7 +706,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Crème fraiche",
+        ingredient: "Crème fraîche",
         quantity: 200,
         unit: "grammes",
       },
@@ -716,7 +716,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "huile d'olive",
+        ingredient: "Huile d'olive",
         quantity: 1,
         unit: "cuillères à soupe",
       },
@@ -757,14 +757,14 @@ const recipes = [
         unit: "cl",
       },
       {
-        ingredient: "Crème Fraiche",
+        ingredient: "Crème fraîche",
         quantity: 1,
         unit: "cuillères à soupe",
       },
     ],
     time: 30,
     description:
-      "Cuisiner la viande hachée dans une poelle à frire. Dans une autre faire cuire les oignons découpés en fins dés avec un peu de beurre. Ajouter du vin rouge. Mélanger les oigons avec la viande hachée. Faire cuire les pates le temps indiqué sur le paquet. Ajouter le coulis de tomates à la viande hachée. Une fois que les pates sont cuites, ajouter la crème fraiche à la viande hachée. Serivir.",
+      "Cuisiner la viande hachée dans une poelle à frire. Dans une autre faire cuire les oignons découpés en fins dés avec un peu de beurre. Ajouter du vin rouge. Mélanger les oigons avec la viande hachée. Faire cuire les pates le temps indiqué sur le paquet. Ajouter le coulis de tomates à la viande hachée. Une fois que les pates sont cuites, ajouter la crème fraîche à la viande hachée. Serivir.",
     appliance: "Casserolle.",
     ustensils: ["Cuillère en bois", "louche", "couteau"],
   },
@@ -829,7 +829,7 @@ const recipes = [
         quantity: 3,
       },
       {
-        ingredient: "Crème Fraîche",
+        ingredient: "Crème fraîche",
         quantity: 20,
         unit: "cl",
       },
@@ -935,7 +935,7 @@ const recipes = [
         quantity: 1,
       },
       {
-        ingredient: "Huile d'olives",
+        ingredient: "Huile d'olive",
       },
       {
         ingredient: "Oignon",
@@ -1319,7 +1319,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Huile d'olives",
+        ingredient: "Huile d'olive",
         quantity: 25,
         unit: "cl",
       },
@@ -1529,7 +1529,7 @@ const recipes = [
   },
   {
     id: 44,
-    name: "Crème déssert au chocolat",
+    name: "Crème dessert au chocolat",
     servings: 6,
     ingredients: [
       {
@@ -1553,7 +1553,7 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "farine",
+        ingredient: "Farine",
         quantity: 40,
         unit: "grammes",
       },
@@ -1657,14 +1657,14 @@ const recipes = [
         unit: "grammes",
       },
       {
-        ingredient: "Crème Fraîche",
+        ingredient: "Crème fraîche",
         quantity: 20,
         unit: "cl",
       },
     ],
     time: 5,
     description:
-      "Mélanger le jus de citron avec le sucre et la mascarpone. Ajouter la crème fraiche. Mélanger le tout et mettre au congélateur pendant 1 heure. Servir",
+      "Mélanger le jus de citron avec le sucre et la mascarpone. Ajouter la crème fraîche. Mélanger le tout et mettre au congélateur pendant 1 heure. Servir",
     appliance: "Saladier",
     ustensils: ["fouet", "verres", "cuillère en bois"],
   },
@@ -1753,7 +1753,7 @@ const recipes = [
         quantity: 6,
       },
       {
-        ingredient: "Poudre d'amendes",
+        ingredient: "Poudre d'amandes",
         quantity: 500,
         unit: "grammes",
       },
@@ -1770,7 +1770,7 @@ const recipes = [
     ],
     time: 60,
     description:
-      "Préparer la frangipane : Mélanger le sucre la poudre d'amander, le beurre et les oeufs. Etaler la moitier de la pate feuilleté et mettre dans un moule à tarte. Garnir de frangipane et recouvrir du reste de pate feuilletée. Mettre au four 30 minutes",
+      "Préparer la frangipane : Mélanger le sucre la poudre d'amandes, le beurre et les oeufs. Etaler la moitier de la pate feuilletée et mettre dans un moule à tarte. Garnir de frangipane et recouvrir du reste de pate feuilletée. Mettre au four 30 minutes",
     appliance: "Four",
     ustensils: ["rouleau à patisserie", "fouet"],
   },
