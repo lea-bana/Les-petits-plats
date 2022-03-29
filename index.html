@@ -40,48 +40,55 @@
         />
         <i class="fas fa-search"> </i>
       </div>
-      <div class="container tagList">
-        <div id="box-ingredients" class="boxList" tabindex="1">
+      <div class="tagList"></div>
+      <div class="container">
+        <div id="box-ingredients" class="row boxList" tabindex="1">
+          <span class="">Ingrédients</span>
           <input
             type="text"
             name="ingredients"
             id="search-ingredients"
-            class="hide search"
-            placeholder="Ingredients"
+            class="hideInput"
           />
           <i class="fas fa-chevron-down" id="dropdownIngredients"> </i>
           <div id="listIngredients" class="list">
             <ul
-              class="search-list-ingredients"
+              class="search-list-ingredients inactive"
               id="listIngredientsContainer"
             ></ul>
           </div>
         </div>
-        <div id="box-appareils" class="boxList" tabindex="1">
+        <div id="box-appareils" class="row boxList" tabindex="1">
+          <span class="list-appareils padding title">Appareils</span>
           <input
             type="text"
             name="appliance"
             id="search-appareils"
-            class="hide search"
-            placeholder="Appareils"
+            class="hideInput"
           />
           <i class="fas fa-chevron-down" id="dropdownAppliances"> </i>
 
           <div id="listAppareils" class="list">
-            <ul class="search-list-appareils" id="listAppliancesContainer"></ul>
+            <ul
+              class="search-list-appareils inactive"
+              id="listAppliancesContainer"
+            ></ul>
           </div>
         </div>
-        <div id="box-ustensiles" class="boxList" tabindex="1">
+        <div id="box-ustensiles" class="row boxList" tabindex="1">
+          <span class="list-ustensiles padding title">Ustensiles</span>
           <input
             type="text"
             name="ustensils"
             id="search-ustensils"
-            class="hide search"
-            placeholder="Ustensiles"
+            class="hideInput"
           />
           <i class="fas fa-chevron-down" id="dropdownUstensils"> </i>
           <div id="listUstensiles" class="list">
-            <ul class="search-list-ustensils" id="listUstensilsContainer"></ul>
+            <ul
+              class="search-list-ustensils inactive"
+              id="listUstensilsContainer"
+            ></ul>
           </div>
         </div>
       </div>

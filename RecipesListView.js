@@ -58,7 +58,9 @@ class RecipesListView {
   displayIngredientsFilter(ingredientsList) {
     //affiche tous les ingrédients de toutes les recettes
     const list = document.getElementById("listIngredientsContainer");
-    list.addEventListener("click", this.handleClickTags);
+    list.addEventListener("click", (event) => {
+      this.handleClickTags(event);
+    });
     ingredientsList.forEach((ingredient) => {
       //console.log(ingredient);
       const myIng = document.createElement("li");
@@ -73,7 +75,7 @@ class RecipesListView {
       this.handleClickTags(event);
     });
     appliancesList.forEach((appliance) => {
-      console.log(appliance);
+      //console.log(appliance);
       const myAppliance = document.createElement("li");
       myAppliance.textContent = appliance;
       list.appendChild(myAppliance);
@@ -87,7 +89,7 @@ class RecipesListView {
     });
 
     ustensilsList.forEach((ustensil) => {
-      console.log(ustensil);
+      //console.log(ustensil);
       const myUstensil = document.createElement("li");
       myUstensil.textContent = ustensil;
       list.appendChild(myUstensil);
@@ -99,6 +101,6 @@ class RecipesListView {
     const tag = event.target;
     console.log(this.listIngredientsFilter);
     this.listIngredientsFilter.add(tag.textContent);
-    console.log(this.listIngredientsFilter);
+    //console.log(this.listIngredientsFilter);
   }
 }

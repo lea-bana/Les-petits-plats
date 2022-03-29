@@ -52,60 +52,119 @@ input ::placeholder {
   display: flex;
   flex-direction: row;
   padding-left: 0%;
+  justify-content: space-between;
+}
+.inactive {
+  display: none;
+}
+.container {
+  display: flex;
 }
 .boxList {
+  display: inline-flex;
+  align-items: baseline;
+  width: 15%;
+  height: 50px;
+  border-radius: 5px;
+  font-weight: 600;
+  /*font-size: 0.75em;
+  width: 20%;*/
   margin-top: 1.5em;
+  margin-right: 2em;
   cursor: initial;
-  margin-right: -10%;
 }
-.fa-chevron-down {
-  margin-left: auto;
-  height: 10px;
-  margin-right: 0.5em;
-  cursor: pointer;
+.hideInput {
+  max-width: 83%;
+  color: white;
+  border-radius: inherit;
+  border: none;
+  outline: none;
+  background-color: unset;
+  z-index: unset;
+  max-height: 110px;
 }
-#search-ingredients {
-  max-width: 50%;
+.list {
+  z-index: 2;
+}
+#box-ingredients {
+  max-width: 100%;
   border: none;
   background-color: #3282f7;
   color: white;
-  font-size: 1em;
+  /*font-size: 1.6em;*/
   padding-left: 0.5em;
   font-weight: 500;
 }
-
 #search-ingredients::placeholder {
   color: rgba(255, 255, 255, 0.733);
-  border: #3282f7 solid 1px;
+  /*border: #3282f7 solid 1px;*/
 }
-#search-appareils {
-  max-width: 50%;
+#box-appareils {
+  max-width: 100%;
   border: none;
   background-color: #68d9a4;
   color: white;
-  font-size: 1em;
+  /*font-size: 1.6em;*/
   padding-left: 0.5em;
   font-weight: 500;
 }
 
 #search-appareils::placeholder {
   color: rgba(255, 255, 255, 0.733);
-  border: #68d9a4 solid 1px;
+  /*border: #68d9a4 solid 1px;*/
 }
-#search-ustensils {
-  max-width: 50%;
+
+#box-ustensiles {
+  max-width: 100%;
   border: none;
   background-color: #ed6454;
   color: white;
-  font-size: 1em;
   padding-left: 0.5em;
   font-weight: 500;
 }
 
 #search-ustensils::placeholder {
   color: rgba(255, 255, 255, 0.733);
-  border: #ed6454 solid 1px;
+  /*border: #ed6454 solid 1px;*/
 }
-.inactive {
-  display: none;
+.fa-chevron-down {
+  size: 1em;
+  margin-left: auto;
+  margin-right: 0.5em;
+  cursor: pointer;
+  margin-left: auto;
+  height: 10px;
+  margin-right: 0.5em;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.search-list-ingredients {
+  column-count: 3;
+  background-color: #3282f7;
+  padding: unset;
+  /* column-width: auto; */
+  list-style: none;
+  /* alignment-baseline: middle; */
+  list-style-position: inside;
+}
+
+.search-list-appareils {
+  column-count: 3;
+  background-color: #68d9a4;
+  padding: unset;
+  /* column-width: auto; */
+  list-style: none;
+  /* alignment-baseline: middle; */
+  list-style-position: inside;
+}
+
+.search-list-ustensils {
+  column-count: 3;
+  background-color: #ed6454;
+  padding: unset;
+  /* column-width: auto; */
+  list-style: none;
+  /* alignment-baseline: middle; */
+  list-style-position: inside;
 }
