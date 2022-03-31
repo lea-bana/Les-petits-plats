@@ -41,16 +41,17 @@
         <i class="fas fa-search"> </i>
       </div>
       <div class="tagList"></div>
+
       <div class="container">
-        <div id="box-ingredients" class="row boxList" tabindex="1">
-          <span class="">Ingrédients</span>
+        <div id="box-ingredients" class="boxList" tabindex="1">
           <input
             type="text"
             name="ingredients"
             id="search-ingredients"
             class="hideInput"
+            placeholder="Ingrédients"
           />
-          <i class="fas fa-chevron-down" id="dropdownIngredients"> </i>
+          <i class="fas fa-chevron-down rotate" id="dropdownIngredients"> </i>
           <div id="listIngredients" class="list">
             <ul
               class="search-list-ingredients inactive"
@@ -58,15 +59,15 @@
             ></ul>
           </div>
         </div>
-        <div id="box-appareils" class="row boxList" tabindex="1">
-          <span class="list-appareils padding title">Appareils</span>
+        <div id="box-appareils" class="boxList" tabindex="1">
           <input
             type="text"
             name="appliance"
             id="search-appareils"
             class="hideInput"
+            placeholder="Appareils"
           />
-          <i class="fas fa-chevron-down" id="dropdownAppliances"> </i>
+          <i class="fas fa-chevron-down rotate" id="dropdownAppliances"> </i>
 
           <div id="listAppareils" class="list">
             <ul
@@ -75,15 +76,15 @@
             ></ul>
           </div>
         </div>
-        <div id="box-ustensiles" class="row boxList" tabindex="1">
-          <span class="list-ustensiles padding title">Ustensiles</span>
+        <div id="box-ustensiles" class="boxList" tabindex="1">
           <input
             type="text"
             name="ustensils"
             id="search-ustensils"
             class="hideInput"
+            placeholder="Ustensiles"
           />
-          <i class="fas fa-chevron-down" id="dropdownUstensils"> </i>
+          <i class="fas fa-chevron-down rotate" id="dropdownUstensils"> </i>
           <div id="listUstensiles" class="list">
             <ul
               class="search-list-ustensils inactive"
@@ -92,6 +93,7 @@
           </div>
         </div>
       </div>
+
       <div id="no-results">
         Aucune recette ne correspond à votre critère...<br />
         Vous pouvez chercher "tarte aux pommes", "poisson", etc.
