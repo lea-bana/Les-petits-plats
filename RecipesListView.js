@@ -5,26 +5,66 @@ class RecipesListView {
     this.listAppliancesFilter = new Set();
     this.listUstensilesFilter = new Set();
     console.log(this.listIngredientsFilter);
+    this.recipes = recipes;
   }
 
   showRecipesList(recipes) {
-    //à terminer + css
     let recipesListTag = document.getElementById("recipes");
     recipesListTag.setAttribute("class", "cardsContainer");
-    //cible l'element html id recipes dans le main et lui ajoute la classe cardsContainer
-    const listCardDOM = document.createElement("div");
-    listCardDOM.setAttribute("class", "article-recipes");
-    recipesListTag.appendChild(listCardDOM);
 
     for (let index = 0; index < recipes.length; index++) {
       const recipe = recipes[index];
-      listCardDOM.innerHTML += this.getRecipeCard(recipe);
-    }
-    //console.log(recipes);
-  }
 
+      recipesListTag.appendChild(this.getRecipeCard(recipe));
+    }
+  }
+  //TROP balèze a refacto ! Divide into X functions
   getRecipeCard(recipe) {
-    return recipe.name + "<br>";
+    //On créer la carte parente
+    const listCardDOM = document.createElement("div");
+    listCardDOM.setAttribute("class", "card");
+    //On créer la div qui contiendra l'image
+    let imgDivCard = document.createElement("div");
+    let imgCard = document.createElement("img");
+    imgDivCard.appendChild(imgCard);
+    //On créer la div qui contiendra le titre et le temps
+    const bodyCard = document.createElement("div");
+    bodyCard.classList.add("titlePrepa");
+    const bodyCardName = document.createElement("h3");
+    bodyCardName.classList.add("recipe-title");
+    bodyCardName.textContent = recipe.name;
+    const bodyCardTime = document.createElement("div");
+    bodyCardTime.classList.add("time");
+    const bodyCardTimeIcon = document.createElement("i");
+    bodyCardTimeIcon.classList.add("fa-solid", "fa-magnifying-glass");
+    const bodyCardTimeValue = document.createElement("p");
+    bodyCardTimeValue.textContent = recipe.time + " min";
+    //On créer la div qui contiendra la liste des ingrédient  + descritpion de la recipe
+    const globalRecipe = document.createElement("div");
+    const bodyCardIngredientsList = document.createElement("ul");
+    bodyCardIngredientsList.classList.add("bodyCardIngredientsList");
+    recipe.ingredients.forEach((ingredient) => {
+      const bodyCardIngredientsListItem = document.createElement("li");
+      ingredient.unit !== undefined ? "" : (ingredient.unit = " ");
+      ingredient.quantity !== undefined ? "" : (ingredient.quantity = " ");
+      bodyCardIngredientsListItem.textContent =
+        ingredient.ingredient +
+        ": " +
+        ingredient.quantity +
+        " " +
+        ingredient.unit;
+      bodyCardIngredientsListItem.classList.add("listItem");
+      bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
+    });
+    const bodyCardRecipeDescription = document.createElement("p");
+    bodyCardRecipeDescription.textContent = recipe.description;
+
+    bodyCardTime.append(bodyCardTimeIcon, bodyCardTimeValue);
+    bodyCard.append(bodyCardName, bodyCardTime);
+    globalRecipe.append(bodyCardIngredientsList, bodyCardRecipeDescription);
+    listCardDOM.append(imgDivCard, bodyCard, globalRecipe);
+
+    return listCardDOM;
   }
 
   initEventListener() {
@@ -58,8 +98,8 @@ class RecipesListView {
   }
 
   initShowAppliancesList() {
+    //
     const dropdown = document.getElementById("dropdownAppliances");
-
     dropdown.addEventListener("click", (e) => {
       dropdown.classList.toggle("down");
 
@@ -70,7 +110,6 @@ class RecipesListView {
       appli.value = "";
       if (appli.placeholder == "Appareils") {
         appli.placeholder = "Rechercher un appareil";
-        console.log("rechercher");
       } else {
         appli.value = "";
         appli.placeholder = "Appareils";
@@ -90,7 +129,6 @@ class RecipesListView {
       ustens.value = "";
       if (ustens.placeholder == "Ustensiles") {
         ustens.placeholder = "Rechercher un ustensile";
-        console.log("rechercher");
       } else {
         ustens.value = "";
         ustens.placeholder = "Ustensiles";
@@ -100,6 +138,7 @@ class RecipesListView {
 
   displayIngredientsFilter(ingredientsList) {
     //affiche tous les ingrédients de toutes les recettes
+    //
     const list = document.getElementById("listIngredientsContainer");
     list.addEventListener("click", (event) => {
       this.handleClickTags(event);
@@ -144,6 +183,7 @@ class RecipesListView {
     const tag = event.target;
     const parent = tag.parentNode;
     const idParent = parent.id;
+    //1. On récupére la liste de toutes les recettes dans le DOM
 
     switch (idParent) {
       case "listIngredientsContainer":
@@ -156,20 +196,56 @@ class RecipesListView {
         this.listUstensilesFilter.add(tag.textContent);
         break;
     }
-    console.log(this.listIngredientsFilter);
-    console.log(this.listAppliancesFilter);
-    console.log(this.listUstensilesFilter);
 
     this.showSelectedTags();
+    this.filterRecipeList();
+    //rappeler la mtéhode de construction en lui passant un nouveau tableau
+    this.addEventListenerOnCloseCrossTags();
   }
 
-  closeTags() {
-    const closeCross = document.querySelector(".closeTag");
-    const closeTag = document.querySelector(".tag");
-    console.log(closeTag);
-    closeCross.addEventListener("click", () => {
-      closeTag.remove();
-    });
+  //-----------------------------------------------------------------------------------------//
+  filterRecipeList() {}
+  //1.Récupére la liste des Selected Tags
+  //Comparer le tableau myFilters (tiré su set ingr selectionnés -listIngredientsFilter) avec le tableau courant d'ingrédients
+  //de la recette (courante)
+  //
+  //const recipes = this.recipes;
+  //const myFilters = new Array(...this.listIngredientsFilter);
+
+  /*const result = recipes.filter(recipe => {
+      recipe.ingredients.filter(ingredient =>{
+        ingredient.ingrfir
+      })
+    } )
+  }*/
+
+  //-------------------------------------------------------------------------------------------//
+
+  addEventListenerOnCloseCrossTags() {
+    const closeCrossList = document.querySelectorAll(".closeTag");
+    console.log(closeCrossList);
+
+    for (let index = 0; index < closeCrossList.length; index++) {
+      const closeTag = closeCrossList[index];
+      closeTag.addEventListener("click", (e) => {
+        //1. récupérer l'élement sur lequel on a cliqué (x)
+        console.log(e.target.closest(".tag"));
+        const myElement = e.target.closest(".tag");
+        //2. Retrouver la liste a laquelle il appartient
+        if (myElement.classList.contains("ingr")) {
+          console.log(myElement.textContent);
+          this.listIngredientsFilter.delete(myElement.textContent);
+        } else if (myElement.classList.contains("appli")) {
+          console.log(myElement.textContent);
+          this.listAppliancesFilter.delete(myElement.textContent);
+        } else if (myElement.classList.contains("ustens")) {
+          console.log(myElement.textContent);
+          this.listUstensilesFilter.delete(myElement.textContent);
+        }
+
+        closeTag.parentNode.remove();
+      });
+    }
   }
 
   showSelectedTags() {
@@ -186,17 +262,6 @@ class RecipesListView {
       tagIngr.append(currentIngredient, closeTag);
       tagList.appendChild(tagIngr);
     }
-
-    /*this.listIngredientsFilter.forEach((currentIngredient) => {
-      const closeTag = document.createElement("span");
-      closeTag.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
-      const tagIngr = document.createElement("div");
-      tagIngr.className = "tag";
-      tagIngr.classList.add("ingr");
-      tagIngr.textContent = currentIngredient;
-      tagIngr.appendChild(closeTag);
-      tagList.appendChild(tagIngr);
-    });*/
 
     for (let currentAppliance of this.listAppliancesFilter) {
       console.log(this.listAppliancesFilter);
@@ -220,6 +285,5 @@ class RecipesListView {
       tagUstensile.append(currentUstensile, closeTag);
       tagList.appendChild(tagUstensile);
     }
-    this.closeTags();
   }
 }
