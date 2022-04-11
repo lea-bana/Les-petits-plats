@@ -25,7 +25,10 @@ class RecipesListView {
     listCardDOM.setAttribute("class", "card");
     //On créer la div qui contiendra l'image
     let imgDivCard = document.createElement("div");
+    imgDivCard.setAttribute("class", "imgDivCard");
     let imgCard = document.createElement("img");
+    imgCard.setAttribute("class", "img");
+    imgCard.setAttribute("src", `assets/resto1.jpg`);
     imgDivCard.appendChild(imgCard);
     //On créer la div qui contiendra le titre et le temps
     const bodyCard = document.createElement("div");
@@ -36,11 +39,12 @@ class RecipesListView {
     const bodyCardTime = document.createElement("div");
     bodyCardTime.classList.add("time");
     const bodyCardTimeIcon = document.createElement("i");
-    bodyCardTimeIcon.classList.add("fa-solid", "fa-magnifying-glass");
-    const bodyCardTimeValue = document.createElement("p");
+    bodyCardTimeIcon.classList.add("fa-regular", "fa-clock");
+    const bodyCardTimeValue = document.createElement("span");
     bodyCardTimeValue.textContent = recipe.time + " min";
     //On créer la div qui contiendra la liste des ingrédient  + descritpion de la recipe
     const globalRecipe = document.createElement("div");
+    globalRecipe.setAttribute("class", "globalRecipe");
     const bodyCardIngredientsList = document.createElement("ul");
     bodyCardIngredientsList.classList.add("bodyCardIngredientsList");
     recipe.ingredients.forEach((ingredient) => {
@@ -57,6 +61,7 @@ class RecipesListView {
       bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
     });
     const bodyCardRecipeDescription = document.createElement("p");
+    bodyCardRecipeDescription.setAttribute("class", "ellipsis");
     bodyCardRecipeDescription.textContent = recipe.description;
 
     bodyCardTime.append(bodyCardTimeIcon, bodyCardTimeValue);
