@@ -4,7 +4,6 @@ class RecipesListView {
     this.listIngredientsFilter = new Set();
     this.listAppliancesFilter = new Set();
     this.listUstensilesFilter = new Set();
-    console.log(this.listIngredientsFilter);
     this.recipes = recipes;
   }
 
@@ -20,33 +19,37 @@ class RecipesListView {
   }
   //TROP balèze a refacto ! Divide into X functions
   getRecipeCard(recipe) {
-    //On créer la carte parente
+    //Div englobante de la carte
     const listCardDOM = document.createElement("div");
     listCardDOM.setAttribute("class", "card");
-    //On créer la div qui contiendra l'image
+    //Div de l'image
     let imgDivCard = document.createElement("div");
     imgDivCard.setAttribute("class", "imgDivCard");
+    //l'image attribuée
     let imgCard = document.createElement("img");
     imgCard.setAttribute("class", "img");
     imgCard.setAttribute("src", `assets/resto1.jpg`);
+    //image dans sa div
     imgDivCard.appendChild(imgCard);
-    //On créer la div qui contiendra le titre et le temps
+    //Div titre et temps & icon
     const bodyCard = document.createElement("div");
     bodyCard.classList.add("titlePrepa");
-    const bodyCardName = document.createElement("h3");
-    bodyCardName.classList.add("recipe-title");
-    bodyCardName.textContent = recipe.name;
+    const bodyCardTitle = document.createElement("h3");
+    bodyCardTitle.classList.add("recipe-title");
+    bodyCardTitle.textContent = recipe.name;
     const bodyCardTime = document.createElement("div");
     bodyCardTime.classList.add("time");
     const bodyCardTimeIcon = document.createElement("i");
     bodyCardTimeIcon.classList.add("fa-regular", "fa-clock");
     const bodyCardTimeValue = document.createElement("span");
     bodyCardTimeValue.textContent = recipe.time + " min";
-    //On créer la div qui contiendra la liste des ingrédient  + descritpion de la recipe
+    //Div englobante liste ingredients + description recette
     const globalRecipe = document.createElement("div");
     globalRecipe.setAttribute("class", "globalRecipe");
+    //liste des ingredients
     const bodyCardIngredientsList = document.createElement("ul");
     bodyCardIngredientsList.classList.add("bodyCardIngredientsList");
+    //pour chaque ingrédients de la recette - créer un li , si unit et quantity ne sont pas renseignés - Rien
     recipe.ingredients.forEach((ingredient) => {
       const bodyCardIngredientsListItem = document.createElement("li");
       ingredient.unit !== undefined ? "" : (ingredient.unit = " ");
@@ -60,12 +63,13 @@ class RecipesListView {
       bodyCardIngredientsListItem.classList.add("listItem");
       bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
     });
+    //description de la recette
     const bodyCardRecipeDescription = document.createElement("p");
     bodyCardRecipeDescription.setAttribute("class", "ellipsis");
     bodyCardRecipeDescription.textContent = recipe.description;
 
     bodyCardTime.append(bodyCardTimeIcon, bodyCardTimeValue);
-    bodyCard.append(bodyCardName, bodyCardTime);
+    bodyCard.append(bodyCardTitle, bodyCardTime);
     globalRecipe.append(bodyCardIngredientsList, bodyCardRecipeDescription);
     listCardDOM.append(imgDivCard, bodyCard, globalRecipe);
 
@@ -188,7 +192,6 @@ class RecipesListView {
     const tag = event.target;
     const parent = tag.parentNode;
     const idParent = parent.id;
-    //1. On récupére la liste de toutes les recettes dans le DOM
 
     switch (idParent) {
       case "listIngredientsContainer":
@@ -204,18 +207,31 @@ class RecipesListView {
 
     this.showSelectedTags();
     this.filterRecipeList();
-    //rappeler la mtéhode de construction en lui passant un nouveau tableau
+    //rappeler la mtéhode de construction en lui passant le nouveau tableau filtré
     this.addEventListenerOnCloseCrossTags();
   }
 
   //-----------------------------------------------------------------------------------------//
-  filterRecipeList() {}
-  //1.Récupére la liste des Selected Tags
-  //Comparer le tableau myFilters (tiré su set ingr selectionnés -listIngredientsFilter) avec le tableau courant d'ingrédients
-  //de la recette (courante)
-  //
+  filterRecipeList() {
+    //1.Récupérer la liste des ingrédients / appareils / ustensiles sélectionnés et la transformer en array (car c'est un set)
+    const myIngredientsFilter = new Array(...this.listIngredientsFilter);
+    //console.log(myIngredientsFilter);
+    const myAplliancesFilter = new Array(...this.listAppliancesFilter);
+    const myUstensilesFilter = new Array(...this.listUstensilesFilter);
+    //2.Récupérer le tableau des ingrédients / appareils / ustensiles de chaque recette pr le comparer aux filtres
+    //model getIngredients? comparer avec l'ensemble des ingredients?
+    for (let index = 0; index < this.recipes.length; index++) {
+      const recipe = this.recipes[index];
+      recipe.ingredients.forEach((ingredient) => {
+        if (ingredient === myIngredientsFilter) {
+          console.log(ingredient);
+        }
+      });
+    }
+  }
+
   //const recipes = this.recipes;
-  //const myFilters = new Array(...this.listIngredientsFilter);
+  //
 
   /*const result = recipes.filter(recipe => {
       recipe.ingredients.filter(ingredient =>{
@@ -228,7 +244,6 @@ class RecipesListView {
 
   addEventListenerOnCloseCrossTags() {
     const closeCrossList = document.querySelectorAll(".closeTag");
-    console.log(closeCrossList);
 
     for (let index = 0; index < closeCrossList.length; index++) {
       const closeTag = closeCrossList[index];
@@ -269,7 +284,6 @@ class RecipesListView {
     }
 
     for (let currentAppliance of this.listAppliancesFilter) {
-      console.log(this.listAppliancesFilter);
       const closeTag = document.createElement("span");
       closeTag.classList.add("closeTag");
       closeTag.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';

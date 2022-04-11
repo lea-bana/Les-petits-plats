@@ -244,6 +244,7 @@ p {
   font-size: x-small;
   margin-top: unset;
   margin-bottom: unset;
+  margin-right: 2%;
 }
 .titlePrepa {
   display: flex;
@@ -277,6 +278,7 @@ p {
 .ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
+  max-height: 120px;
 }
 
 .card {
