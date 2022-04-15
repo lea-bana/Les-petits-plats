@@ -7,17 +7,23 @@ class RecipesListView {
     this.recipes = recipes;
   }
 
+  //Affichage des recipes cards dans le main DOM
+
   showRecipesList(recipes) {
     let recipesListTag = document.getElementById("recipes");
     recipesListTag.setAttribute("class", "cardsContainer");
+
+    recipesListTag.innerHTML = "";
 
     for (let index = 0; index < recipes.length; index++) {
       const recipe = recipes[index];
 
       recipesListTag.appendChild(this.getRecipeCard(recipe));
     }
+    this.ellipsisText();
   }
-  //TROP balèze a refacto ! Divide into X functions
+  //factory des cards
+  //TROP balèze a refacto ! Divide into X functions // dans un autre fichier?
   getRecipeCard(recipe) {
     //Div englobante de la carte
     const listCardDOM = document.createElement("div");
@@ -64,6 +70,7 @@ class RecipesListView {
       bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
     });
     //description de la recette
+    //1.créer fonction utilitaire EllipsisText à appeler pour les descr°
     const bodyCardRecipeDescription = document.createElement("p");
     bodyCardRecipeDescription.setAttribute("class", "ellipsis");
     bodyCardRecipeDescription.textContent = recipe.description;
@@ -76,6 +83,21 @@ class RecipesListView {
     return listCardDOM;
   }
 
+  //fonction utilitaire pour rendre l'ellipsis sur les descr°---------------------------------------------------//
+
+  ellipsisText() {
+    let repiceDescrList = document.querySelectorAll(".ellipsis");
+    for (let index = 0; index < repiceDescrList.length; index++) {
+      const description = repiceDescrList[index];
+      let d = description.firstChild;
+      if (d.length > 200) {
+        d.textContent = d.nodeValue.substring(0, 200) + "...";
+      }
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------------------//
+
   initEventListener() {
     this.initShowIngredientsList();
     this.initShowAppliancesList();
@@ -84,6 +106,8 @@ class RecipesListView {
   //refacto on utilise closest PUIS on cherche dans le parent via querySelector
   //un élément qui a une class qui commence par querySelector('[class^="list"]')
   //sensé chopper tous les &l&ments ayant une class commencant par listxxxxx
+
+  //listeners sur les dropdown pour inititer l'affichage des listes
 
   initShowIngredientsList() {
     const dropdown = document.getElementById("dropdownIngredients");
@@ -98,7 +122,6 @@ class RecipesListView {
 
       if (ingr.placeholder == "Ingrédients") {
         ingr.placeholder = "Rechercher un ingrédient";
-        console.log("rechercher");
       } else {
         ingr.value = "";
         ingr.placeholder = "Ingrédients";
@@ -107,7 +130,6 @@ class RecipesListView {
   }
 
   initShowAppliancesList() {
-    //
     const dropdown = document.getElementById("dropdownAppliances");
     dropdown.addEventListener("click", (e) => {
       dropdown.classList.toggle("down");
@@ -207,39 +229,55 @@ class RecipesListView {
 
     this.showSelectedTags();
     this.filterRecipeList();
-    //rappeler la mtéhode de construction en lui passant le nouveau tableau filtré
+    //rappeler la méthode de construction en lui passant le nouveau tableau filtré
     this.addEventListenerOnCloseCrossTags();
   }
 
   //-----------------------------------------------------------------------------------------//
   filterRecipeList() {
     //1.Récupérer la liste des ingrédients / appareils / ustensiles sélectionnés et la transformer en array (car c'est un set)
-    const myIngredientsFilter = new Array(...this.listIngredientsFilter);
-    //console.log(myIngredientsFilter);
-    const myAplliancesFilter = new Array(...this.listAppliancesFilter);
-    const myUstensilesFilter = new Array(...this.listUstensilesFilter);
+
     //2.Récupérer le tableau des ingrédients / appareils / ustensiles de chaque recette pr le comparer aux filtres
-    //model getIngredients? comparer avec l'ensemble des ingredients?
-    for (let index = 0; index < this.recipes.length; index++) {
-      const recipe = this.recipes[index];
-      recipe.ingredients.forEach((ingredient) => {
-        if (ingredient === myIngredientsFilter) {
-          console.log(ingredient);
-        }
-      });
+    //3.
+    let filteredRecipes = this.recipes;
+
+    if (this.listIngredientsFilter.size != 0) {
+      const myFilters = new Array(...this.listIngredientsFilter);
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        myFilters.every((filter) =>
+          recipe.ingredients
+            .map((ingredients) => ingredients.ingredient.toLowerCase())
+            .includes(filter.toLowerCase())
+        )
+      );
     }
+    if (this.listUstensilesFilter.size != 0) {
+      const usFilters = new Array(...this.listUstensilesFilter);
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        usFilters.every((filter) =>
+          recipe.ustensils
+            .map((us) => us.toLowerCase())
+            .includes(filter.toLowerCase())
+        )
+      );
+    }
+    if (this.listAppliancesFilter.size != 0) {
+      const appFilters = new Array(...this.listAppliancesFilter);
+      filteredRecipes = filteredRecipes.filter((recipe) =>
+        appFilters.every(
+          (filter) => recipe.appliance.toLowerCase() === filter.toLowerCase()
+        )
+      );
+    }
+    console.log(filteredRecipes);
+    //---------------------------------------------------------------------------------------------------//
+    // if de la barre de recherche
+
+    //---------------------------------------------------------------------------------------------------//
+    console.log(filteredRecipes);
+
+    this.showRecipesList(filteredRecipes);
   }
-
-  //const recipes = this.recipes;
-  //
-
-  /*const result = recipes.filter(recipe => {
-      recipe.ingredients.filter(ingredient =>{
-        ingredient.ingrfir
-      })
-    } )
-  }*/
-
   //-------------------------------------------------------------------------------------------//
 
   addEventListenerOnCloseCrossTags() {
@@ -264,6 +302,7 @@ class RecipesListView {
         }
 
         closeTag.parentNode.remove();
+        this.filterRecipeList();
       });
     }
   }
