@@ -14,6 +14,7 @@ class RecipesListView {
     recipesListTag.setAttribute("class", "cardsContainer");
 
     recipesListTag.innerHTML = "";
+    console.log(recipes);
 
     for (let index = 0; index < recipes.length; index++) {
       const recipe = recipes[index];
@@ -70,7 +71,7 @@ class RecipesListView {
       bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
     });
     //description de la recette
-    //1.créer fonction utilitaire EllipsisText à appeler pour les descr°
+
     const bodyCardRecipeDescription = document.createElement("p");
     bodyCardRecipeDescription.setAttribute("class", "ellipsis");
     bodyCardRecipeDescription.textContent = recipe.description;
@@ -107,7 +108,7 @@ class RecipesListView {
   //un élément qui a une class qui commence par querySelector('[class^="list"]')
   //sensé chopper tous les &l&ments ayant une class commencant par listxxxxx
 
-  //listeners sur les dropdown pour inititer l'affichage des listes
+  //listeners sur les dropdown et les input pour inititer l'affichage des listes
 
   initShowIngredientsList() {
     const dropdown = document.getElementById("dropdownIngredients");
@@ -117,6 +118,21 @@ class RecipesListView {
       const mylist = document.getElementById("listIngredientsContainer");
       mylist.classList.toggle("inactive");
 
+      let ingr = document.getElementsByName("ingredients")[0];
+      ingr.value = "";
+
+      if (ingr.placeholder == "Ingrédients") {
+        ingr.placeholder = "Rechercher un ingrédient";
+      } else {
+        ingr.value = "";
+        ingr.placeholder = "Ingrédients";
+      }
+    });
+    const inputIngr = document.getElementById("search-ingredients");
+    inputIngr.addEventListener("click", (e) => {
+      inputIngr.classList.toggle("down");
+      const mylist = document.getElementById("listIngredientsContainer");
+      mylist.classList.toggle("inactive");
       let ingr = document.getElementsByName("ingredients")[0];
       ingr.value = "";
 
@@ -146,6 +162,21 @@ class RecipesListView {
         appli.placeholder = "Appareils";
       }
     });
+    const inputAppli = document.getElementById("search-appareils");
+    inputAppli.addEventListener("click", (e) => {
+      inputAppli.classList.toggle("down");
+      const mylist = document.getElementById("listAppliancesContainer");
+      mylist.classList.toggle("inactive");
+      let appli = document.getElementsByName("appliances")[0];
+      appli.value = "";
+
+      if (appli.placeholder == "Appareils") {
+        ingr.placeholder = "Rechercher un appareil";
+      } else {
+        appli.value = "";
+        appli.placeholder = "Appareils";
+      }
+    });
   }
   initShowUstensilsList() {
     const dropdown = document.getElementById("dropdownUstensils");
@@ -165,13 +196,81 @@ class RecipesListView {
         ustens.placeholder = "Ustensiles";
       }
     });
+    const inputUstens = document.getElementById("search-ustensils");
+    inputUstens.addEventListener("click", (e) => {
+      inputUstens.classList.toggle("down");
+      const mylist = document.getElementById("listUstensilsContainer");
+      mylist.classList.toggle("inactive");
+      let ustens = document.getElementsByName("ustensils")[0];
+      ustens.value = "";
+
+      if (ustens.placeholder == "Ustensiles") {
+        ustens.placeholder = "Rechercher un ustensile";
+      } else {
+        ustens.value = "";
+        ustens.placeholder = "Ustensiles";
+      }
+    });
   }
+  //--------------------------------------------------------------MAIN SEARCH------------------------------------
+
+  filterRecipeListBySearchBar(searchText, listRecipes) {
+    let filteredList = [];
+    for (let index = 0; index < listRecipes.length; index++) {
+      const recipe = listRecipes[index];
+      //console.log(recipe);
+      if (recipe.name.includes(searchText)) {
+        filteredList.push(recipe);
+      } else {
+        for (let ingredient of recipe.ingredients) {
+          //console.log(ingredient);
+          if (ingredient.ingredient.includes(searchText)) {
+            filteredList.push(recipe);
+            break;
+          }
+        }
+      }
+    }
+    console.log(filteredList);
+    return filteredList;
+  }
+
+  launchSearch() {
+    let filteredRecipes;
+    let searchText = document.getElementById("search").value;
+    filteredRecipes = this.filterRecipeListBySearchBar(
+      searchText,
+      this.recipes
+    );
+    filteredRecipes = this.filterRecipeListbyTag(filteredRecipes);
+    //afficher les recettes correspondantes à filteredRecipes
+    this.showRecipesList(filteredRecipes);
+  }
+
+  addEventListenerOnInputSearchBar() {
+    const inputSearch = document.getElementById("search");
+    inputSearch.addEventListener("keydown", (event) => {
+      console.log(event.target.value);
+      //this.filterRecipeListBySearchBar(event.target.value);
+      this.launchSearch();
+    });
+  }
+
+  //-------------------------------------------------------------------------------------------------------------//
+
+  /*quand la recherche est lancée - actualisation des listes des ingredients*/
+
+  //--------------------------------------------LISTES DE RECHERCHE BY TAG---------------------------------------//
 
   displayIngredientsFilter(ingredientsList) {
     //affiche tous les ingrédients de toutes les recettes
-    //
+
     const list = document.getElementById("listIngredientsContainer");
     list.addEventListener("click", (event) => {
+      this.handleClickTags(event);
+    });
+    const inputIngr = document.getElementById("search-ingredients");
+    inputIngr.addEventListener("click", (event) => {
       this.handleClickTags(event);
     });
     ingredientsList.forEach((ingredient) => {
@@ -228,21 +327,22 @@ class RecipesListView {
     }
 
     this.showSelectedTags();
-    this.filterRecipeList();
+    this.launchSearch();
     //rappeler la méthode de construction en lui passant le nouveau tableau filtré
     this.addEventListenerOnCloseCrossTags();
   }
 
   //-----------------------------------------------------------------------------------------//
-  filterRecipeList() {
+  filterRecipeListbyTag(listRecipes) {
     //1.Récupérer la liste des ingrédients / appareils / ustensiles sélectionnés et la transformer en array (car c'est un set)
 
-    //2.Récupérer le tableau des ingrédients / appareils / ustensiles de chaque recette pr le comparer aux filtres
-    //3.
-    let filteredRecipes = this.recipes;
+    //2.Récupérer le tableau des ingrédients / appareils / ustensiles de chaque recette pr le comparer aux filtres(includes)
+
+    let filteredRecipes = listRecipes;
 
     if (this.listIngredientsFilter.size != 0) {
       const myFilters = new Array(...this.listIngredientsFilter);
+      console.log(filteredRecipes);
       filteredRecipes = filteredRecipes.filter((recipe) =>
         myFilters.every((filter) =>
           recipe.ingredients
@@ -269,14 +369,22 @@ class RecipesListView {
         )
       );
     }
-    console.log(filteredRecipes);
-    //---------------------------------------------------------------------------------------------------//
-    // if de la barre de recherche
+    return filteredRecipes;
 
-    //---------------------------------------------------------------------------------------------------//
-    console.log(filteredRecipes);
+    /*const inputSearch = document.getElementById("search");
+    let inputSearchValue = inputSearch.value;
+    inputSearchValue = [];
 
-    this.showRecipesList(filteredRecipes);
+    this.recipes.forEach((recipe) => {
+      const ingr = new Array(...this.listIngredients);
+      ingr.push(recipe.ingredients);
+    });
+    console.log(inputSearchValue);
+    //inputSearch.addEventListener("input",
+    if (inputSearchValue >= 3) {
+      let result = inputSearchValue.includes(inputSearchValue.value);
+      console.log(result);
+    }*/
   }
   //-------------------------------------------------------------------------------------------//
 
@@ -302,7 +410,7 @@ class RecipesListView {
         }
 
         closeTag.parentNode.remove();
-        this.filterRecipeList();
+        this.launchSearch();
       });
     }
   }

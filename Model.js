@@ -4,6 +4,7 @@ class Model {
     this.ingredients = new Set();
     this.ustensils = new Set();
     this.appliances = new Set();
+    this.description = new Set();
     this.init();
   }
 
@@ -14,6 +15,7 @@ class Model {
       this.addIngredients(recipe.ingredients);
       this.addAppliances(recipe.appliance);
       this.addUstensils(recipe.ustensils);
+      this.addDescription(recipe.description);
     }
   }
 
@@ -35,6 +37,14 @@ class Model {
       const ustensil = listUstensils[index];
       this.ustensils.add(ustensil);
     }
+  }
+
+  addDescription(listDescriptions) {
+    this.description.add(listDescriptions);
+  }
+
+  getDescriptions() {
+    return this.description;
   }
 
   getUstensils() {

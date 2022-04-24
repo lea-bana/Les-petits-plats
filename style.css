@@ -83,6 +83,9 @@ input ::placeholder {
   padding: 5px;
 }
 
+.active {
+  display: block;
+}
 .inactive {
   display: none;
 }
