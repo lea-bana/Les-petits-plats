@@ -176,7 +176,6 @@ class RecipesListView {
       const mylist = document.getElementById("listAppliancesContainer");
       mylist.classList.toggle("inactive");
       let appli = document.getElementsByName("appliance")[0];
-      console.log(appli);
       appli.value = "";
 
       if (appli.placeholder == "Appareils") {
@@ -237,28 +236,6 @@ class RecipesListView {
     });
 
     return filteredRecipes;
-  }
-
-  filterRecipeListBySearchBar2(searchText, listRecipes) {
-    let filteredList = [];
-    searchText = searchText.toLowerCase();
-    for (let index = 0; index < listRecipes.length; index++) {
-      const recipe = listRecipes[index];
-      if (recipe.description.toLowerCase().includes(searchText)) {
-        filteredList.push(recipe);
-      } else if (recipe.name.toLowerCase().includes(searchText)) {
-        filteredList.push(recipe);
-      } else {
-        for (let ingredient of recipe.ingredients) {
-          if (ingredient.ingredient.toLowerCase().includes(searchText)) {
-            filteredList.push(recipe);
-            break;
-          }
-        }
-      }
-    }
-
-    return filteredList;
   }
 
   launchSearch() {
@@ -345,17 +322,14 @@ class RecipesListView {
     const inputUstensils = document.getElementById("search-ustensils");
 
     inputIngredient.addEventListener("keyup", (event) => {
-      console.log(event.target.value);
       this.filterInTagsLists();
     });
 
     inputAppliances.addEventListener("keyup", (event) => {
-      //console.log(event.target.value);
       this.filterInTagsLists();
     });
 
     inputUstensils.addEventListener("keyup", (event) => {
-      console.log(event.target.value);
       this.filterInTagsLists();
     });
   }
@@ -366,7 +340,6 @@ class RecipesListView {
     const list = document.getElementById("listIngredientsContainer");
     list.innerHTML = "";
     list.addEventListener("click", (event) => {
-      console.log(event.target);
       this.handleClickTags(event);
     });
   }
@@ -376,8 +349,6 @@ class RecipesListView {
     //affiche tous les ingrédients de toutes les recettes
     list.innerHTML = ""; // a rajouter pour vider les listes
     ingredientsList.forEach((ingredient) => {
-      //console.log(ingredient);
-
       const myIng = document.createElement("li");
       myIng.textContent = ingredient;
       list.appendChild(myIng);
@@ -396,7 +367,6 @@ class RecipesListView {
     list.innerHTML = "";
 
     appliancesList.forEach((appliance) => {
-      //console.log(appliance);
       const myAppliance = document.createElement("li");
       myAppliance.textContent = appliance;
       list.appendChild(myAppliance);
@@ -415,7 +385,6 @@ class RecipesListView {
     list.innerHTML = "";
 
     ustensilsList.forEach((ustensil) => {
-      //console.log(ustensil);
       const myUstensil = document.createElement("li");
       myUstensil.textContent = ustensil;
       list.appendChild(myUstensil);
@@ -456,7 +425,7 @@ class RecipesListView {
 
     if (this.listIngredientsFilter.size != 0) {
       const myFilters = new Array(...this.listIngredientsFilter);
-      console.log(filteredRecipes);
+
       filteredRecipes = filteredRecipes.filter((recipe) =>
         myFilters.every((filter) =>
           recipe.ingredients
@@ -494,17 +463,14 @@ class RecipesListView {
       const closeTag = closeCrossList[index];
       closeTag.addEventListener("click", (e) => {
         //1. récupérer l'élement sur lequel on a cliqué (x)
-        console.log(e.target.closest(".tag"));
+
         const myElement = e.target.closest(".tag");
         //2. Retrouver la liste a laquelle il appartient
         if (myElement.classList.contains("ingr")) {
-          console.log(myElement.textContent);
           this.listIngredientsFilter.delete(myElement.textContent);
         } else if (myElement.classList.contains("appli")) {
-          console.log(myElement.textContent);
           this.listAppliancesFilter.delete(myElement.textContent);
         } else if (myElement.classList.contains("ustens")) {
-          console.log(myElement.textContent);
           this.listUstensilesFilter.delete(myElement.textContent);
         }
 
