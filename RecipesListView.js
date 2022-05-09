@@ -228,11 +228,34 @@ class RecipesListView {
   //--------------------------------------------------------------MAIN SEARCH------------------------------------
 
   filterRecipeListBySearchBar(searchText, listRecipes) {
+    searchText = searchText.toLowerCase();
+
+    let filteredRecipes = listRecipes.filter((recipe) => {
+      return (
+        recipe.name.toLowerCase().includes(searchText) ||
+        recipe.description.toLowerCase().includes(searchText) ||
+        recipe.ingredients.some((ingredient) =>
+          ingredient.ingredient.toLowerCase().includes(searchText)
+        )
+      );
+    });
+    //fonction doit renvoyer true quand la chaine recherché se trouve dans le nom de l'ingr
+
+    console.log(filteredRecipes);
+    return filteredRecipes;
+  }
+
+  /*ici c'est le 1er algo celui QUI MARCHE*/
+
+  filterRecipeListBySearchBar2(searchText, listRecipes) {
     let filteredList = [];
+    searchText = searchText.toLowerCase();
     for (let index = 0; index < listRecipes.length; index++) {
       const recipe = listRecipes[index];
       //console.log(recipe);
-      if (recipe.name.toLowerCase().includes(searchText.toLowerCase())) {
+      if (recipe.description.toLowerCase().includes(searchText)) {
+        filteredList.push(recipe);
+      } else if (recipe.name.toLowerCase().includes(searchText)) {
         filteredList.push(recipe);
       } else {
         for (let ingredient of recipe.ingredients) {
@@ -258,13 +281,13 @@ class RecipesListView {
     );
     filteredRecipes = this.filterRecipeListbyTag(filteredRecipes);
 
-    console.log(filteredRecipes.length);
+    //console.log(filteredRecipes.length);
     if (filteredRecipes.length === 0) {
       noResults.style.display = "block";
     } else {
       //récupérer tous les ingrédients/appliances/ustensils des recettes contenu dans
       //filteredRecipes. Sortir chacune des lists et les envoyer dans les fonctions dispayTruc
-      console.log(filteredRecipes);
+      //console.log(filteredRecipes);
 
       let ingrInFilteredRecipes = new Set();
       let appliFilteredRecipes = new Set();
@@ -295,7 +318,7 @@ class RecipesListView {
     const inputSearch = document.getElementById("search");
 
     inputSearch.addEventListener("keyup", (event) => {
-      console.log(event.target.value.length);
+      //console.log(event.target.value.length);
 
       // si event.target.textContent.length >= 3
       if (event.target.value.length >= 3) {

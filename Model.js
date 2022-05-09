@@ -26,13 +26,11 @@ class Model {
   addIngredients(listIngredients) {
     for (let index = 0; index < listIngredients.length; index++) {
       const ingredient = listIngredients[index];
-      //console.log(ingredient);
       this.ingredients.add(ingredient.ingredient);
     }
   }
 
   addUstensils(listUstensils) {
-    //console.log(listUstensils);
     for (let index = 0; index < listUstensils.length; index++) {
       const ustensil = listUstensils[index];
       this.ustensils.add(ustensil);
