@@ -11,7 +11,7 @@ class Model {
   init() {
     for (let index = 0; index < this.recipes.length; index++) {
       const recipe = this.recipes[index];
-      //console.log(recipe);
+
       this.addIngredients(recipe.ingredients);
       this.addAppliances(recipe.appliance);
       this.addUstensils(recipe.ustensils);

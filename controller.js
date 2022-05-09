@@ -2,8 +2,6 @@ class Controller {
   display() {
     let model = new Model();
 
-    //let algo1 = new SearchBarAlgo1();
-
     let listIngredients = model.getIngredients();
     let listAppliances = model.getAppliances();
     let listUstensils = model.getUstensils();
@@ -14,9 +12,5 @@ class Controller {
       listUstensils
     );
     view.showRecipesList(model.recipes);
-
-    //algo1.searchInIngredients(listIngredients);
-
-    //let recipes = model.getRecipes();
   }
 }

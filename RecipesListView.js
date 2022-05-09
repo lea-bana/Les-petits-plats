@@ -14,14 +14,12 @@ class RecipesListView {
     this.displayUstentilsFilter(this.listUstensils);
   }
 
-  //Affichage des recipes cards dans le main DOM
+  //Affichage des recipes cards dans DOM
 
   showRecipesList(recipes) {
     let recipesListTag = document.getElementById("recipes");
     recipesListTag.setAttribute("class", "cardsContainer");
-
     recipesListTag.innerHTML = "";
-    console.log(recipes);
 
     for (let index = 0; index < recipes.length; index++) {
       const recipe = recipes[index];
@@ -30,8 +28,9 @@ class RecipesListView {
     }
     this.ellipsisText();
   }
-  //factory des cards
-  //TROP balèze a refacto ! Divide into X functions // dans un autre fichier?
+
+  //Construction des cards recipes
+
   getRecipeCard(recipe) {
     //Div englobante de la carte
     const listCardDOM = document.createElement("div");
@@ -78,11 +77,9 @@ class RecipesListView {
       bodyCardIngredientsList.appendChild(bodyCardIngredientsListItem);
     });
     //description de la recette
-
     const bodyCardRecipeDescription = document.createElement("p");
     bodyCardRecipeDescription.setAttribute("class", "ellipsis");
     bodyCardRecipeDescription.textContent = recipe.description;
-
     bodyCardTime.append(bodyCardTimeIcon, bodyCardTimeValue);
     bodyCard.append(bodyCardTitle, bodyCardTime);
     globalRecipe.append(bodyCardIngredientsList, bodyCardRecipeDescription);
@@ -106,6 +103,8 @@ class RecipesListView {
 
   //------------------------------------------------------------------------------------------------------------//
 
+  //fonction appelant les addEventListener (dans le constructor de la classe)
+
   initEventListener() {
     this.initShowIngredientsList();
     this.initShowAppliancesList();
@@ -116,11 +115,8 @@ class RecipesListView {
     this.listenerOnAppliList();
     this.ListenerOnUstensilsList();
   }
-  //refacto on utilise closest PUIS on cherche dans le parent via querySelector
-  //un élément qui a une class qui commence par querySelector('[class^="list"]')
-  //sensé chopper tous les &l&ments ayant une class commencant par listxxxxx
 
-  //listeners sur les dropdown et les input pour inititer l'affichage des listes
+  //fonctions addEventListener sur les dropdown + modifs des placeholders
 
   initShowIngredientsList() {
     const dropdown = document.getElementById("dropdownIngredients");
@@ -225,7 +221,7 @@ class RecipesListView {
       }
     });
   }
-  //--------------------------------------------------------------MAIN SEARCH------------------------------------
+  //--------------------------------------------------------------MAIN SEARCH----------------------------------------//
 
   filterRecipeListBySearchBar(searchText, listRecipes) {
     searchText = searchText.toLowerCase();
@@ -239,27 +235,21 @@ class RecipesListView {
         )
       );
     });
-    //fonction doit renvoyer true quand la chaine recherché se trouve dans le nom de l'ingr
 
-    console.log(filteredRecipes);
     return filteredRecipes;
   }
-
-  /*ici c'est le 1er algo celui QUI MARCHE*/
 
   filterRecipeListBySearchBar2(searchText, listRecipes) {
     let filteredList = [];
     searchText = searchText.toLowerCase();
     for (let index = 0; index < listRecipes.length; index++) {
       const recipe = listRecipes[index];
-      //console.log(recipe);
       if (recipe.description.toLowerCase().includes(searchText)) {
         filteredList.push(recipe);
       } else if (recipe.name.toLowerCase().includes(searchText)) {
         filteredList.push(recipe);
       } else {
         for (let ingredient of recipe.ingredients) {
-          //console.log(ingredient);
           if (ingredient.ingredient.toLowerCase().includes(searchText)) {
             filteredList.push(recipe);
             break;
@@ -267,7 +257,7 @@ class RecipesListView {
         }
       }
     }
-    console.log(filteredList);
+
     return filteredList;
   }
 
@@ -281,14 +271,9 @@ class RecipesListView {
     );
     filteredRecipes = this.filterRecipeListbyTag(filteredRecipes);
 
-    //console.log(filteredRecipes.length);
     if (filteredRecipes.length === 0) {
       noResults.style.display = "block";
     } else {
-      //récupérer tous les ingrédients/appliances/ustensils des recettes contenu dans
-      //filteredRecipes. Sortir chacune des lists et les envoyer dans les fonctions dispayTruc
-      //console.log(filteredRecipes);
-
       let ingrInFilteredRecipes = new Set();
       let appliFilteredRecipes = new Set();
       let ustensFilteredRecipes = new Set();
@@ -308,9 +293,6 @@ class RecipesListView {
       noResults.style.display = "none";
     }
     this.showRecipesList(filteredRecipes);
-    //Si filteredRecipes.length === 0 > on affiche la div no-result
-    //Sinon
-    //afficher les recettes correspondantes à filteredRecipes
   }
 
   // Mise en place du listener sur boite search
@@ -318,9 +300,6 @@ class RecipesListView {
     const inputSearch = document.getElementById("search");
 
     inputSearch.addEventListener("keyup", (event) => {
-      //console.log(event.target.value.length);
-
-      // si event.target.textContent.length >= 3
       if (event.target.value.length >= 3) {
         this.launchSearch();
       } else {
@@ -331,15 +310,11 @@ class RecipesListView {
   }
   //-------------------------------------------------------------------------------------------------------------//
 
-  //-------------------------------------------------------------------------------------------------------------//
-
   /*quand recherche dans inputsBy Tags- actualisation des listes */
 
   filterInTagsLists() {
     let searchIngrText = document.getElementById("search-ingredients").value;
     searchIngrText = searchIngrText.toLowerCase();
-    console.log(searchIngrText);
-    console.log(this.listIngredients);
     let filteredIngrList = Utils.filterSet(
       searchIngrText,
       this.listIngredients
