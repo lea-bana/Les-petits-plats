@@ -287,7 +287,8 @@ class RecipesListView {
   }
   //-------------------------------------------------------------------------------------------------------------//
 
-  /*quand recherche dans inputsBy Tags- actualisation des listes */
+  /*quand recherche écrite dans input By Tags- actualisation des listes d'ingrédients ou appareils
+  ou ustensiles affichées */
 
   filterInTagsLists() {
     let searchIngrText = document.getElementById("search-ingredients").value;

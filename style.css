@@ -283,11 +283,6 @@ p {
   width: 100%;
   font-size: xx-small;
 }
-.ellipsis {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-height: 120px;
-}
 
 .card {
   min-width: 270px;
