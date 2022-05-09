@@ -223,23 +223,9 @@ class RecipesListView {
   }
   //--------------------------------------------------------------MAIN SEARCH----------------------------------------//
 
+  //ALGO 2
+
   filterRecipeListBySearchBar(searchText, listRecipes) {
-    searchText = searchText.toLowerCase();
-
-    let filteredRecipes = listRecipes.filter((recipe) => {
-      return (
-        recipe.name.toLowerCase().includes(searchText) ||
-        recipe.description.toLowerCase().includes(searchText) ||
-        recipe.ingredients.some((ingredient) =>
-          ingredient.ingredient.toLowerCase().includes(searchText)
-        )
-      );
-    });
-
-    return filteredRecipes;
-  }
-
-  filterRecipeListBySearchBar2(searchText, listRecipes) {
     let filteredList = [];
     searchText = searchText.toLowerCase();
     for (let index = 0; index < listRecipes.length; index++) {
@@ -345,17 +331,14 @@ class RecipesListView {
     const inputUstensils = document.getElementById("search-ustensils");
 
     inputIngredient.addEventListener("keyup", (event) => {
-      console.log(event.target.value);
       this.filterInTagsLists();
     });
 
     inputAppliances.addEventListener("keyup", (event) => {
-      //console.log(event.target.value);
       this.filterInTagsLists();
     });
 
     inputUstensils.addEventListener("keyup", (event) => {
-      console.log(event.target.value);
       this.filterInTagsLists();
     });
   }
@@ -396,7 +379,6 @@ class RecipesListView {
     list.innerHTML = "";
 
     appliancesList.forEach((appliance) => {
-      //console.log(appliance);
       const myAppliance = document.createElement("li");
       myAppliance.textContent = appliance;
       list.appendChild(myAppliance);
@@ -442,7 +424,7 @@ class RecipesListView {
 
     this.showSelectedTags();
     this.launchSearch();
-    //rappeler la méthode de construction en lui passant le nouveau tableau filtré
+    //rappelle la méthode de construction en lui passant le nouveau tableau filtré
     this.addEventListenerOnCloseCrossTags();
   }
 
